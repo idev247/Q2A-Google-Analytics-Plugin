@@ -25,12 +25,16 @@ class qa_html_theme_layer extends qa_html_theme_base {
   }
 
   function body_script() {
-    $this->_add_google_analytics_script();
+    if(!qa_opt('google_analytics_in_head')) {
+      $this->_add_google_analytics_script();
+    }
     qa_html_theme_base::body_script();
   }
 
   function head_script() { // insert Javascript into the <head>		
-    $this->_add_google_analytics_script('head');
+    if(qa_opt('google_analytics_in_head')) {
+      $this->_add_google_analytics_script('head');
+    }
     qa_html_theme_base::head_script();
   }
 };

@@ -1,4 +1,6 @@
-This plugin will add the script for Google Analytics (GA) in the <head> part of
+**NOTICE: This will only work if you implemented a body_script loop**
+
+This plugin will add the script for Google Analytics (GA) in the <head> or <body> part of
 your Question 2 Answer installation.
 
 The only configurable part is in the "Plugins" section on the Admin interface.

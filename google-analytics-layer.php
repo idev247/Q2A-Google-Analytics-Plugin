@@ -2,15 +2,15 @@
 
 class qa_html_theme_layer extends qa_html_theme_base {
 
-function head_script() {// insert Javascript into the <head>
-		
-		$google_UA = qa_opt('google_analytics_UA');
-		$is_admin = (qa_get_logged_in_level() == 120) ? true : false;
+   function _script($placement = 'body') {
+     $google_UA = qa_opt('google_analytics_UA');
+     $is_admin = (qa_get_logged_in_level() == 120) ? true : false;
+     $placement = $placement == 'head ? '' : $placement;
 
-    if (isset($google_UA)) { 
-			if (!($is_admin && qa_opt('google_analytics_show_for_admin'))) { // the loged in user is not the admin
-				$this->content['script'][]='<script type="text/javascript">'.
-				'var _gaq = _gaq || [];'.
+     if(isset($google_UA)) {
+       if (!($is_admin && qa_opt('google_analytics_show_for_admin'))) { // the loged in user is not the admin
+        $this->content[$placement.'script'][]='<script type="text/javascript">'.
+        'var _gaq = _gaq || [];'.
         '_gaq.push([\'_setAccount\', \''.$google_UA.'\']);'.
         '_gaq.push([\'_trackPageview\']);'.
         '(function() {'.
@@ -19,9 +19,18 @@ function head_script() {// insert Javascript into the <head>
         'var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);'.
         '})();'.
         '</script>';
-				
-			}
-		}
-  qa_html_theme_base::head_script();
+
+      }
+    }
+  }
+
+  function body_script() {
+    $this->_add_google_analytics_script();
+    qa_html_theme_base::body_script();
+  }
+
+  function head_script() { // insert Javascript into the <head>		
+    $this->_add_google_analytics_script('head');
+    qa_html_theme_base::head_script();
   }
 };

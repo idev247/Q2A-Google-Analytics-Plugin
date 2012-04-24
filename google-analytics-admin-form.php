@@ -26,6 +26,12 @@ class google_analytics_admin_form {
 					'value' => qa_opt('google_analytics_show_for_admin'),
 					'tags' => 'NAME="google_analytics_show_for_admin_field"',
         ),
+        array(
+          'label' => 'Put in head (default to body)',
+                                        'type' => 'checkbox',
+                                        'value' => qa_opt('google_analytics_in_head'),
+                                        'tags' => 'NAME="google_analytics_in_head"',
+        ),
       ),
        
       'buttons' => array(

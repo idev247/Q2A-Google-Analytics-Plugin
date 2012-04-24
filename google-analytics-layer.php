@@ -2,10 +2,10 @@
 
 class qa_html_theme_layer extends qa_html_theme_base {
 
-   function _script($placement = 'body') {
+   function _add_google_analytics_script($placement = 'body') {
      $google_UA = qa_opt('google_analytics_UA');
      $is_admin = (qa_get_logged_in_level() == 120) ? true : false;
-     $placement = $placement == 'head ? '' : $placement;
+     $placement = $placement == 'head' ? '' : $placement;
 
      if(isset($google_UA)) {
        if (!($is_admin && qa_opt('google_analytics_show_for_admin'))) { // the loged in user is not the admin
@@ -25,16 +25,16 @@ class qa_html_theme_layer extends qa_html_theme_base {
   }
 
   function body_script() {
-    if(!qa_opt('google_analytics_in_head')) {
+    if(qa_opt('google_analytics_in_head')) {
       $this->_add_google_analytics_script();
     }
-    qa_html_theme_base::body_script();
+    qa_html_theme::body_script();
   }
 
   function head_script() { // insert Javascript into the <head>		
-    if(qa_opt('google_analytics_in_head')) {
+    if(!qa_opt('google_analytics_in_head')) {
       $this->_add_google_analytics_script('head');
     }
-    qa_html_theme_base::head_script();
+    qa_html_theme::head_script();
   }
 };
